@@ -21,7 +21,8 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: none
 
-      - run: composer update --prefer-dist --no-interaction --no-progress
+      # Laravel 10, the only one Octane can use on PHP 8.1, has open advisories; dev only.
+      - run: composer update --prefer-dist --no-interaction --no-progress --no-security-blocking
 
       - run: composer test:unit
 

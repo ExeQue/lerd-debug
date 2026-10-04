@@ -11,6 +11,7 @@ use Symfony\Component\Messenger\Event\WorkerMessageHandledEvent;
 
 use function expect;
 use function it;
+use function sys_get_temp_dir;
 
 /**
  * A container with the bundle's extension loaded from the given config.
@@ -20,6 +21,8 @@ use function it;
 function bundleContainer(array $config = []): ContainerBuilder
 {
     $container = new ContainerBuilder();
+    $container->setParameter('kernel.environment', 'test');
+    $container->setParameter('kernel.build_dir', sys_get_temp_dir());
     $extension = (new LerdDebugBundle())->getContainerExtension();
     $container->registerExtension($extension);
     $container->loadFromExtension($extension->getAlias(), $config);
