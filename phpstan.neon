@@ -1,0 +1,11 @@
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+    level: 10
+    paths:
+        - src
+    # Defined by lerd's extension, with a value that differs per process.
+    dynamicConstantNames:
+        - LERD_DEVTOOLS_ON
+        - LERD_DEVTOOLS_JOBS

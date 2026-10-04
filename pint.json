@@ -1,0 +1,31 @@
+{
+    "preset": "psr12",
+    "rules": {
+        "native_function_invocation": {
+            "include": [
+                "@all"
+            ],
+            "scope": "all",
+            "strict": true
+        },
+        "native_constant_invocation": {
+            "scope": "all"
+        },
+        "global_namespace_import": {
+            "import_classes": true,
+            "import_constants": true,
+            "import_functions": true
+        },
+        "ordered_imports": {
+            "imports_order": [
+                "class",
+                "function",
+                "const"
+            ],
+            "sort_algorithm": "alpha"
+        }
+    },
+    "exclude": [
+        "config"
+    ]
+}

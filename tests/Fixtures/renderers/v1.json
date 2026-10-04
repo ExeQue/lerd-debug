@@ -1,0 +1,219 @@
+[
+    {
+        "type": "timeline",
+        "label": "Render invoice",
+        "category": "billing",
+        "color": "amber",
+        "start": 1700000000.25,
+        "duration_ms": 12.5,
+        "details": {
+            "order": 42
+        }
+    },
+    {
+        "type": "timeline",
+        "label": "Webhook received",
+        "category": "hooks",
+        "color": "cyan",
+        "start": 1700000001.5,
+        "duration_ms": null,
+        "details": []
+    },
+    {
+        "type": "log",
+        "level": "warning",
+        "message": "Slow upstream",
+        "context": {
+            "ms": 2300
+        },
+        "trace": true,
+        "performance": true
+    },
+    {
+        "type": "auth",
+        "id": "7",
+        "email": "ada@example.test",
+        "name": "Ada",
+        "guard": "web"
+    },
+    {
+        "type": "tab",
+        "tab": "cart",
+        "title": "Cart",
+        "columns": 2,
+        "placement": {
+            "position": "before",
+            "tab": "database"
+        },
+        "block": {
+            "title": "Lines",
+            "span": 1,
+            "type": "table",
+            "columns": [
+                "sku",
+                "qty"
+            ],
+            "rows": [
+                [
+                    "A-1",
+                    2
+                ],
+                {
+                    "sku": "B-7",
+                    "qty": 1
+                }
+            ]
+        }
+    },
+    {
+        "type": "tab",
+        "tab": "cart",
+        "title": "Cart",
+        "columns": 2,
+        "placement": null,
+        "block": {
+            "title": "Contents",
+            "span": 1,
+            "type": "kv",
+            "values": {
+                "total": 19.9,
+                "items": [
+                    {
+                        "sku": "A-1"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "type": "tab",
+        "tab": "cart",
+        "title": "Cart",
+        "columns": 2,
+        "placement": null,
+        "block": {
+            "title": "Summary",
+            "span": 2,
+            "type": "counters",
+            "counters": {
+                "items": 3,
+                "total": "59.70"
+            }
+        }
+    },
+    {
+        "type": "tab",
+        "tab": "cart",
+        "title": "Cart",
+        "columns": 2,
+        "placement": null,
+        "block": {
+            "title": "Payload",
+            "span": 1,
+            "type": "code",
+            "code": "{\"a\":1}",
+            "language": "json"
+        }
+    },
+    {
+        "type": "tab",
+        "tab": "cart",
+        "title": "Cart",
+        "columns": 2,
+        "placement": null,
+        "block": {
+            "title": null,
+            "span": 1,
+            "type": "text",
+            "text": "Coupon applied"
+        }
+    },
+    {
+        "type": "tab",
+        "tab": "cart",
+        "title": "Cart",
+        "columns": 2,
+        "placement": null,
+        "block": {
+            "title": "This week",
+            "span": 2,
+            "type": "chart",
+            "chart": "bar",
+            "labels": [
+                "Mon",
+                "Tue"
+            ],
+            "series": [
+                {
+                    "name": "orders",
+                    "points": {
+                        "Mon": 3,
+                        "Tue": 5
+                    },
+                    "color": "teal"
+                },
+                {
+                    "name": "returns",
+                    "points": {
+                        "Tue": 1
+                    },
+                    "color": null
+                }
+            ]
+        }
+    },
+    {
+        "type": "tab",
+        "tab": "cart",
+        "title": "Cart",
+        "columns": 2,
+        "placement": null,
+        "block": {
+            "title": "Status",
+            "span": 1,
+            "type": "chart",
+            "chart": "pie",
+            "labels": [
+                "paid",
+                "pending"
+            ],
+            "series": [
+                {
+                    "name": "status",
+                    "points": {
+                        "paid": 8,
+                        "pending": 2
+                    },
+                    "color": null
+                }
+            ]
+        }
+    },
+    {
+        "type": "tab",
+        "tab": "cart",
+        "title": "Cart",
+        "columns": 2,
+        "placement": null,
+        "block": {
+            "title": "Refunds",
+            "span": 1,
+            "type": "chart",
+            "chart": "exploded-pie",
+            "labels": [
+                "card",
+                "bank"
+            ],
+            "series": [
+                {
+                    "name": "refunds",
+                    "points": {
+                        "card": 3,
+                        "bank": 1
+                    },
+                    "color": null
+                }
+            ]
+        }
+    }
+]

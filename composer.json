@@ -1,0 +1,70 @@
+{
+    "name": "lerd/debug",
+    "description": "Write your own timeline entries and Debug window tabs for lerd, as plain no-op calls when lerd is not watching.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "illuminate/events": "^10.0 || ^11.0 || ^12.0 || ^13.0",
+        "illuminate/queue": "^10.0 || ^11.0 || ^12.0 || ^13.0",
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0 || ^13.0",
+        "laravel/octane": "^2.0",
+        "laravel/pint": "^1.13",
+        "pestphp/pest": "^2.36 || ^3.0",
+        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "symfony/config": "^6.4 || ^7.0 || ^8.0",
+        "symfony/dependency-injection": "^6.4 || ^7.0 || ^8.0",
+        "symfony/event-dispatcher": "^6.4 || ^7.0 || ^8.0",
+        "symfony/http-kernel": "^6.4 || ^7.0 || ^8.0",
+        "symfony/messenger": "^6.4 || ^7.0 || ^8.0",
+        "yiisoft/yii2": "^2.0.45",
+        "yiisoft/yii2-queue": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lerd\\Debug\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lerd\\Debug\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "lint": "pint",
+        "test:unit": "pest --testsuite=Unit",
+        "test:arch": "pest --testsuite=Arch",
+        "test:types": "phpstan analyse --memory-limit=512M",
+        "test": [
+            "@test:unit",
+            "@test:arch",
+            "@test:types"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "yiisoft/yii2-composer": false
+        },
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.1.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Lerd\\Debug\\Frameworks\\Laravel\\DebugServiceProvider"
+            ]
+        }
+    },
+    "repositories": [{
+        "name": "asset-packagist",
+        "type": "composer",
+        "url": "https://asset-packagist.org"
+    }]
+}
