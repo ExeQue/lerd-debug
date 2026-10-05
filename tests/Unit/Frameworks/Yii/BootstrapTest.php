@@ -58,3 +58,14 @@ it('forgets kept entries after each queue job, run or failed', function (string 
 
     expect(Lerd::entries())->toBeEmpty();
 })->with([Queue::EVENT_AFTER_EXEC, Queue::EVENT_AFTER_ERROR]);
+
+it('keeps as many entries as the lerd.keep param says', function () {
+    (new Bootstrap())->bootstrap(application(['lerd.keep' => 1]));
+
+    Lerd::info('one');
+    Lerd::info('two');
+
+    expect(Lerd::entries())->toHaveCount(1);
+
+    Lerd::keep(Lerd::DEFAULT_KEEP);
+});

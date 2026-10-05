@@ -66,3 +66,18 @@ it('forgets kept entries after each Messenger message', function () {
 
     expect(Lerd::entries())->toBeEmpty();
 });
+
+it('keeps as many entries as lerd.keep says', function () {
+    $container = bundleContainer(['keep' => 1]);
+    $container->compile();
+    $bundle = new LerdDebugBundle();
+    $bundle->setContainer($container);
+    $bundle->boot();
+
+    Lerd::info('one');
+    Lerd::info('two');
+
+    expect(Lerd::entries())->toHaveCount(1);
+
+    Lerd::keep(Lerd::DEFAULT_KEEP);
+});

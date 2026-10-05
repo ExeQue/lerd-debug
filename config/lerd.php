@@ -16,4 +16,18 @@ return [
 
     'enabled' => (bool) env('LERD_ENABLED', true),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Kept entries
+    |--------------------------------------------------------------------------
+    |
+    | How many of the entries the app wrote are kept in memory for
+    | Lerd::entries(), the oldest dropped first. lerd itself reads each entry
+    | as it is written, so this only matters to code that reads them back,
+    | a test say. Set LERD_KEEP, or 0 to keep none.
+    |
+    */
+
+    'keep' => (int) env('LERD_KEEP', 500), // @phpstan-ignore cast.int
+
 ];

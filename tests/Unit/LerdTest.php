@@ -63,3 +63,25 @@ it('says who the request runs as', function () {
         'guard' => 'web',
     ]);
 });
+
+it('keeps as many entries as it is told, dropping the oldest first', function () {
+    Lerd::keep(2);
+    Lerd::info('one');
+    Lerd::info('two');
+    Lerd::info('three');
+
+    expect(Lerd::entries())->toHaveCount(2)
+        ->and(Lerd::entries()[0])->toBeInstanceOf(\Lerd\Debug\LogLine::class)
+        ->and(Lerd::entries()[0]->message())->toBe('two');
+
+    Lerd::keep(Lerd::DEFAULT_KEEP);
+});
+
+it('keeps nothing in memory when told to keep none, while still tracking', function () {
+    Lerd::keep(0);
+    Lerd::info('sent but not kept');
+
+    expect(Lerd::entries())->toBeEmpty();
+
+    Lerd::keep(Lerd::DEFAULT_KEEP);
+});

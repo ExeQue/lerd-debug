@@ -13,6 +13,7 @@ use Laravel\Octane\Events\TickTerminated;
 use Lerd\Debug\Lerd;
 
 use function dirname;
+use function is_int;
 
 /**
  * Applies the app's lerd config, where `enabled` false switches the package
@@ -44,6 +45,10 @@ class DebugServiceProvider extends ServiceProvider
 
         if ($config->get('lerd.enabled', true) === false) {
             Lerd::enable(false);
+        }
+        $keep = $config->get('lerd.keep');
+        if (is_int($keep)) {
+            Lerd::keep($keep);
         }
 
         $events->listen(self::PRUNE_AFTER, fn () => Lerd::flush());

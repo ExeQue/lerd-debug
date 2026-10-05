@@ -67,3 +67,14 @@ it('leaves the package on when the config allows it', function () {
 
     expect(Lerd::enabled())->toBeTrue();
 });
+
+it('keeps as many entries as the config says', function () {
+    bootedApp(['keep' => 1]);
+
+    Lerd::info('one');
+    Lerd::info('two');
+
+    expect(Lerd::entries())->toHaveCount(1);
+
+    Lerd::keep(Lerd::DEFAULT_KEEP);
+});

@@ -5,9 +5,11 @@ namespace Lerd\Debug;
 use Lerd\Debug\Contracts\Trackable;
 
 use function array_shift;
+use function array_slice;
 use function constant;
 use function count;
 use function defined;
+use function max;
 
 /**
  * One entry point for everything an app writes to lerd's Debug window, and
@@ -20,8 +22,10 @@ use function defined;
  */
 class Lerd
 {
-    /** Entries kept for entries(), oldest dropped first past this many. */
-    private const KEEP = 500;
+    /** How many entries entries() keeps unless told otherwise. */
+    public const DEFAULT_KEEP = 500;
+
+    private static int $keep = self::DEFAULT_KEEP;
 
     private static ?Timeline $timeline = null;
 
@@ -48,6 +52,17 @@ class Lerd
     public static function enable(?bool $enabled = true): void
     {
         self::$enabled = $enabled;
+    }
+
+    /**
+     * How many tracked entries to keep for entries(), the oldest dropped first.
+     * Zero keeps none, which lerd does not need: it reads each entry as it is
+     * tracked.
+     */
+    public static function keep(int $entries): void
+    {
+        self::$keep = max(0, $entries);
+        self::$entries = self::$keep === 0 ? [] : array_slice(self::$entries, -self::$keep);
     }
 
     public static function timeline(): Timeline
@@ -142,8 +157,11 @@ class Lerd
         if (!self::enabled()) {
             return;
         }
+        if (self::$keep === 0) {
+            return;
+        }
         self::$entries[] = $entry;
-        if (count(self::$entries) > self::KEEP) {
+        if (count(self::$entries) > self::$keep) {
             array_shift(self::$entries);
         }
     }

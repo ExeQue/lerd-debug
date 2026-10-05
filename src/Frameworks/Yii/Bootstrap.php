@@ -9,6 +9,7 @@ use yii\base\Event;
 use yii\queue\Queue;
 
 use function class_exists;
+use function is_int;
 
 /**
  * lerd/debug for Yii 2: the `lerd.enabled` param set to false switches the
@@ -25,6 +26,9 @@ class Bootstrap implements BootstrapInterface
     {
         if (($app->params['lerd.enabled'] ?? true) === false) {
             Lerd::enable(false);
+        }
+        if (is_int($app->params['lerd.keep'] ?? null)) {
+            Lerd::keep($app->params['lerd.keep']);
         }
 
         if (class_exists(Queue::class)) {

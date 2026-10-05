@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 use Symfony\Component\Messenger\Event\WorkerMessageHandledEvent;
 
 use function class_exists;
+use function is_int;
 
 /**
  * lerd/debug for Symfony: `lerd.enabled` switches the package off, and the
@@ -26,6 +27,7 @@ class LerdDebugBundle extends AbstractBundle
         $definition->rootNode()
             ->children()
                 ->booleanNode('enabled')->defaultTrue()->end()
+                ->integerNode('keep')->defaultValue(Lerd::DEFAULT_KEEP)->min(0)->end()
             ->end();
     }
 
@@ -35,6 +37,7 @@ class LerdDebugBundle extends AbstractBundle
     public function loadExtension(array $config, ContainerConfigurator $configurator, ContainerBuilder $container): void
     {
         $configurator->parameters()->set('lerd.enabled', ($config['enabled'] ?? true) === true);
+        $configurator->parameters()->set('lerd.keep', is_int($config['keep'] ?? null) ? $config['keep'] : Lerd::DEFAULT_KEEP);
         $services = $configurator->services();
         $services->set('lerd.resetter', Resetter::class)->tag('kernel.reset', ['method' => 'reset']);
         if (class_exists(WorkerMessageHandledEvent::class)) {
@@ -46,6 +49,12 @@ class LerdDebugBundle extends AbstractBundle
     {
         if ($this->container?->getParameter('lerd.enabled') === false) {
             Lerd::enable(false);
+        }
+        if ($this->container !== null && $this->container->hasParameter('lerd.keep')) {
+            $keep = $this->container->getParameter('lerd.keep');
+            if (is_int($keep)) {
+                Lerd::keep($keep);
+            }
         }
     }
 }
